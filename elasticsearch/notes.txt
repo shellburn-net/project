@@ -1,0 +1,16 @@
+# Copy the http_ca.crt SSL certificate from the container to your local machine:
+
+docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
+
+
+# Generated elastic password:
+
+docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+
+# Set your pass into env (for convenience)
+export ELASTIC_PASSWORD="your_password"
+
+
+# Simple request:
+curl --cacert http_ca.crt -u elastic:${ELASTIC_PASSWORD} https://localhost:9201
+
